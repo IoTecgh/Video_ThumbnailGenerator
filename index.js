@@ -3,16 +3,25 @@ const app = new express()
 const thumb=require('./src/thumbnail')
 const bodyparser=require('body-parser')
 const path=require('path')
+const url=require('url')
 
 
 app.use(bodyparser.json());
 
-app.get('/createthumbnail/:filepath/:filename',function(req,res){
-  var sourcepath=req.params.filepath
-  console.log(sourcepath)
-  var filename=req.params.filename
+app.get('/',function(req,res){
+  res.send("Hello to all you out there. Is hot inside")
+
+})
+
+app.post('/createthumbnail',function(req,res){
+  var sourcepath=req.body.filepath
+  
+  var filename=path.basename(sourcepath)
+ 
   var extension=path.extname(filename)
-  var thumbnailName=filename.replace(extension,'.jpg')
+  console.log(extension)
+  var thumbnailName=filename.replace(extension,'.png')
+  console.log(thumbnailName)
 
   thumb.createthumbnail(sourcepath,thumbnailName,function(response){
     res.send(response)

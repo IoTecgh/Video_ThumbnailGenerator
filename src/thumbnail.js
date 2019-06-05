@@ -11,7 +11,7 @@ const path=require('path')
   
 
   const createthumbnail= function createthumbnail(sourcepath,thumbnailName,callback){
-    var destinationpath=sourcepath
+    var destinationpath=path.dirname(sourcepath)
     
     ffmpeg(sourcepath)
     .on('end', function() {
